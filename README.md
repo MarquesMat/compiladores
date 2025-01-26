@@ -47,8 +47,8 @@ O compilador foi desenvolvido em etapas progressivas, cobrindo desde a análise 
 
 1. Clone o repositório:
    ```bash
-   git clone https://github.com/SerranoZz/compilador_minijava.git
-   cd compilador_minijava
+   git clone https://github.com/MarquesMat/compiladores.git
+   cd compiladores
    ```
 
 2. Execute o compilador com o comando:
