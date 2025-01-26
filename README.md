@@ -1,84 +1,65 @@
-# README: Compilador em Python para a Linguagem MiniJava+
 
-Este projeto implementa um **scanner** para a linguagem **MiniJava+**, representando a primeira fase de um compilador. A análise léxica identifica e classifica os tokens de um código-fonte conforme as regras da linguagem.
+# Compilador para MiniJava+
 
-## Objetivo
-- Extrair **tokens** (unidades léxicas) de um arquivo fonte em **MiniJava+**.
+Este repositório contém o desenvolvimento de um compilador para a linguagem **MiniJava+**, implementado como parte do Trabalho I para a disciplina de Compiladores na Universidade Federal Fluminense.
 
----
+## 📋 Descrição do Projeto
 
-## Requisitos
-- **Python 3.8+** instalado no sistema.
-- Código-fonte em MiniJava+ com extensão `.java`.
+O compilador foi desenvolvido em etapas progressivas, cobrindo desde a análise léxica e sintática até a geração de código para a arquitetura MIPS. As principais etapas do projeto incluem:
 
----
+1. **Scanner (Analisador Léxico)**:
+   - Processa o código-fonte e identifica tokens utilizando expressões regulares.
+   - Gera uma tabela de tokens que é consumida nas próximas etapas.
 
-## Como Funciona
+2. **Parser (Analisador Sintático)**:
+   - Constrói a árvore sintática utilizando uma abordagem top-down.
+   - Ajusta gramáticas eliminando recursões à esquerda para melhorar eficiência.
 
-### Entrada
-Um arquivo `.java` com o código-fonte da linguagem MiniJava+.
+3. **Análise Semântica**:
+   - Utiliza uma tabela de símbolos para garantir que o código segue as regras semânticas da linguagem.
+   - Realiza verificações como declaração de variáveis antes do uso e validação de parâmetros em chamadas de funções.
 
-### Saída
-Uma lista de tuplas exibida no console. Cada tupla contém:
-1. O tipo do token (ex.: `key`, `id`, `num`).
-2. O lexema correspondente (ex.: `class`, `main`, `10`).
+4. **Geração de Código Intermediário**:
+   - Converte a árvore sintática abstrata (AST) para uma representação de código intermediário, facilitando a tradução para MIPS.
 
----
+5. **Otimização**:
+   - Realiza otimizações locais, como propagação de cópias e eliminação de redundâncias.
 
-## Como Executar
+6. **Geração de Código MIPS**:
+   - Traduz o código intermediário para instruções compatíveis com a arquitetura MIPS.
 
-1. Salve o código em um arquivo chamado, por exemplo, **`scanner.py`**.
-2. Prepare um arquivo `.java` com o código-fonte a ser analisado. Exemplo:
+## 🛠️ Estrutura do Projeto
 
-**`exemplo.java`**:
-```java
-class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello, World!");
-    }
-}
-```
+- **`main.py`**: Arquivo principal que coordena todas as etapas do compilador.
+- **`scanner.py`**: Realiza a análise léxica do código.
+- **`parser.py`**: Constrói a árvore sintática e verifica a conformidade com as regras da linguagem.
+- **`ast.py`**: Gera a árvore sintática abstrata (AST) para facilitar a geração de código intermediário.
+- **`optimizer.py`**: Aplica otimizações locais no código intermediário.
+- **`mips.py`**: Realiza a tradução do código otimizado para MIPS.
 
-3. Execute o scanner com o comando:
+## 🔧 Tecnologias Utilizadas
+
+- **Python**: Linguagem principal para o desenvolvimento do compilador.
+- **Graphviz**: Para visualização da árvore sintática.
+- **Regex (`re`)**: Para identificação de padrões no código-fonte.
+
+## 🖥️ Execução
+
+1. Clone o repositório:
    ```bash
-   python3 scanner.py exemplo.java
+   git clone https://github.com/SerranoZz/compilador_minijava.git
+   cd compilador_minijava
    ```
 
----
+2. Execute o compilador com o comando:
+   ```bash
+   python3 main.py ./minijava/ex1.java
+   ```
 
-## Exemplo de Saída
-Dado o código acima (`exemplo.java`), a saída será:
-```
-('key', 'class')
-('id', 'Main')
-('del', '{')
-('key', 'public')
-('key', 'static')
-('key', 'void')
-('id', 'main')
-('del', '(')
-('id', 'String')
-('del', '[')
-('del', ']')
-('id', 'args')
-('del', ')')
-('del', '{')
-('id', 'System.out.println')
-('del', '(')
-('id', '"Hello, World!"')
-('del', ')')
-('del', ';')
-('del', '}')
-('del', '}')
-```
+## ✍️ Autores
+
+- **Lucas Silveira Serrano**
+- **Matheus Marques Barros**
 
 ---
 
-## Observações
-- Comentários (tanto de uma linha quanto de várias linhas) são removidos antes da análise.
-- Tokens inválidos geram mensagens de erro indicando a posição no código.
-
----
-
-## Mais informações
-- **Veja o relatório para saber mais sobre o programa como um todo (Scanner + Parser).
